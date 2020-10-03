@@ -54,13 +54,34 @@ GCC生成和使用静态链接库
 首先将源文件编译成目标文件：gcc –c a.c b.c
 生成静态库：ar crv libstatic.a a.o b.o
 
+GCC生成和使用动态链接库
+http://c.biancheng.net/view/2385.html
+如果想创建一个动态链接库，可以使用 GCC 的-shared选项。输入文件可以是源文件、汇编文件或者目标文件。
+另外还得结合-fPIC选项。-fPIC 选项作用于编译阶段，告诉编译器产生与位置无关代码（Position-Independent Code）；
+这样一来，产生的代码中就没有绝对地址了，全部使用相对地址，所以代码可以被加载器加载到内存的任意位置，都可以正确的执行。
+这正是共享库所要求的，共享库被加载时，在内存的位置不是固定的。
+
+从源文件生成动态链接库：
+$ gcc -fPIC -shared func.c -o libfunc.so
+
+从目标文件生成动态链接库：
+$ gcc -fPIC -c func.c -o func.o
+$ gcc -shared func.o -o libfunc.so
+
+-fPIC 选项作用于编译阶段，在生成目标文件时就得使用该选项，以生成位置无关的代码。
+GCC 将动态链接库链接到可执行文件
+如果希望将一个动态链接库链接到可执行文件，那么需要在命令行中列出动态链接库的名称，具体方式和普通的源文件、目标文件一样。
+$ gcc main.c libfunc.so -o app.out
+
+将 main.c 和 libfunc.so 一起编译成 app.out，当 app.out 运行时，会动态地加载链接库 libfunc.so。
+当然，必须要确保程序在运行时可以找到这个动态链接库。你可以将链接库放到标准目录下，例如 /usr/lib，或者设置一个合适的环境变量，例如 LIBRARY_PATH。不同系统，具有不同的加载链接库的方法。
+
 共享库：
 同静态库一样编译成目标文件：gcc –c a.c b.c
 生成共享库：gcc –fPIC –shared –o libshared.so a.o b.o
 
 -shared 产生共享对象
 -fPIC 使用地址无关技术（如果没有这命令选项，产生的将是装载时重定位对象）
-
 /proc/pid/maps
 内存段虚拟地址执行权限进程地址里偏移量映射文件的主设备号和次设备号（cat /proc/devices）映像文件路径
 
