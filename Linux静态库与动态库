@@ -1,8 +1,13 @@
 #Linux下的静态库.a结尾(Winodws下为.lib)
-   创建.o目标文件
+    (1).首先使用 gcc 命令把源文件编译为目标文件，即.o文件
+    #创建.o目标文件
+    gcc -c 源文件列表  
+    #-c选项表示只编译，不链接
     gcc -c test.c -o libtest.o
+    (2).然后使用 ar 命令将.o文件打包成静态链接库，具体格式为：                               
+    ar rcs + 静态库文件的名字 + 目标文件列表
     #创建libtest.a静态库
-    ar rcs libtest.a libtest.o
+    ar rcs libtest.a libtest1.o  libtest2.o
     #链接静态库
     gcc -o test main.c -ltest
 
@@ -35,6 +40,7 @@ ar:
 选项前可以有'-'字符，也可以没有
 r：在库中插入模块(替换)。
 c：创建一个库。不管库是否存在，都将创建。
+s：创建目标文件索引，在创建较大的库时能提高速度。
 v：该选项用来显示执行操作选项的附加信息
 
 静态库：
