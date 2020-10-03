@@ -1,10 +1,20 @@
 #编译
 #1.https://segmentfault.com/a/1190000020325922
 #2.https://segmentfault.com/a/1190000021942612?utm_source
+预编译 编译 汇编 连接四个步骤：
+    1.预编译: gcc -E file.c -o file.i   将.c文件转化为.i文件
+    2.编译:   gcc -S file.i             生成一个.s文件 ,变成汇编程序
+    3.汇编:   gcc -c                    main.s生成一个.o文件,可重定位的二进制文件
+    4.连接:   gcc -o file.out file.o    生成了一个可执行文件file.out。gcc file.o 默认生成了可执行文件a.out
+    
+    gcc -E name.c  //得到.i文件
+    gcc -S name.c  //得到.s文件
+    gcc -c name.c  //得到.o文件
+    gcc -o name.c  //得到.out文件
 
-    gcc -c main.c ==== 编译不链接，生成.o目标文件
     gcc -E main.c ==== 预处理 
     gcc -S main.c ==== 只编译不汇编
+    gcc -c main.c ==== 编译不链接，生成.o目标文件
     gcc -g main.c -o main_d ==== 可进行gdb调试
     gcc -Dname='xinzhu' === 定义宏 define name 'xinzhu'
 
@@ -14,4 +24,3 @@
     gcc -I [大写字母i]寻找头文件目录 /usr/local/include 
     gcc -L [大写字母l]寻找库文件 /usr/local/lib
     gcc -l word [小写字母l], 寻找动态链接库文件libword.so
-    
