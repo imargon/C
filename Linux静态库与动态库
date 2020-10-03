@@ -10,7 +10,8 @@
     ar rcs libtest.a libtest1.o  libtest2.o
     #链接静态库
     gcc -o test main.c -ltest
-
+#Linux 下动态链接库（shared object file，共享对象文件）的文件后缀为.so，它是一种特殊的目标文件（object file），可以在程序运行时被加载（链接）进来。
+#使用动态链接库的优点：程序的可执行文件更小，便于程序的模块化以及更新，同时，有效内存的使用效率更高。
 #Linux下的动态库.so结尾或.so.y结尾，其中y代表版本号(Windows下为.dll)，而且，Linux下的库必须以lib开头，用于系统识别(如：libjpeg.a libsdl.so)
     # 使用位置无关代码创建目标文件
     gcc -c -fPIC test.c -o test.o
