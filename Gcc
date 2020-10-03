@@ -16,7 +16,7 @@
     gcc -L [大写字母l]寻找库文件 /usr/local/lib
     gcc -l word [小写字母l], 寻找动态链接库文件libword.so
     
-#静态库 .a结尾
+#Linux下的静态库.a结尾(Winodws下为.lib)
    创建.o目标文件
     gcc -c test.c -o libtest.o
     #创建libtest.a静态库
@@ -24,10 +24,16 @@
     #链接静态库
     gcc -o test main.c -ltest
 
-#动态库 .so结尾
+#Linux下的动态库.so结尾或.so.y结尾，其中y代表版本号(Windows下为.dll)，而且，Linux下的库必须以lib开头，用于系统识别(如：libjpeg.a libsdl.so)
     # 使用位置无关代码创建目标文件
     gcc -c -fPIC test.c -o test.o
     # 创建共享库libtest.so
     gcc -shared -o libtest.so test.o
     # 链接静态库
     gcc -o test main.c -ltest
+    
+#静态库必要的目标代码的是在对程序编译的时候被加入到程序中,而运行时不再需要.a的库了。
+而动态库，则是在运行时转载。所以，动态链接的可执行代码比静态链接的可执行代码小的多
+动态库分为显式调用和隐式调用
+1.显示调用
+2.隐式调用
