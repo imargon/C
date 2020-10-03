@@ -19,6 +19,8 @@
     gcc -shared -o libtest.so test.o
     # 链接静态库
     gcc -o test main.c -ltest
+    
+    
 在比较规范的项目目录中:
   lib 文件夹一般用来存放库文件，
   include 文件夹一般用来存放头文件，
